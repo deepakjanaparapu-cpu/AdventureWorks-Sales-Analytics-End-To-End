@@ -1,26 +1,23 @@
-# ETL Journey
-
-## Dataset
-
-AdventureWorks Sales Data 2020
-
----
+# AdventureWorks Sales Data 2020
 
 ## Step 1: Import Libraries
+
+### Code
 
 ```python
 import pandas as pd
 import numpy as np
 ```
 
-### Learning
+### Purpose
 
-- Pandas is used for data manipulation.
-- NumPy is used for numerical operations.
+Import libraries required for data analysis and transformation.
 
 ---
 
-## Step 2: Load CSV File
+## Step 2: Load Dataset
+
+### Code
 
 ```python
 sales_2020 = pd.read_csv(
@@ -28,42 +25,37 @@ sales_2020 = pd.read_csv(
 )
 ```
 
-### Learning
+### Purpose
 
-- Used `pd.read_csv()` to load the dataset.
-- Learned that the notebook was running from the Python folder.
-- Used relative paths to access files.
-
----
-
-## Step 3: Verify Current Working Directory
-
-```python
-import os
-os.getcwd()
-```
+Load the AdventureWorks Sales Data 2020 dataset into a Pandas DataFrame.
 
 ### Learning
 
-- Notebook was executing from the Python directory.
-- Had to move one folder up using `..`.
+The dataset was successfully loaded from the Raw data directory.
 
 ---
 
-## Step 4: Preview Dataset
+## Step 3: Preview Dataset
+
+### Code
 
 ```python
 sales_2020.head()
 ```
 
-### Learning
+### Purpose
 
-- Verified successful file load.
-- Viewed first 5 records.
+Inspect the first five records.
+
+### Outcome
+
+Verified successful file load and reviewed dataset structure.
 
 ---
 
-## Step 5: Check Dataset Size
+## Step 4: Validate Dataset Dimensions
+
+### Code
 
 ```python
 sales_2020.shape
@@ -75,24 +67,22 @@ sales_2020.shape
 (2630, 8)
 ```
 
-### Learning
+### Finding
 
-Dataset contains:
-
-- 2630 rows
-- 8 columns
+- Total Rows: 2630
+- Total Columns: 8
 
 ---
 
-## Step 6: Review Column Names
+## Step 5: Review Column Names
+
+### Code
 
 ```python
 sales_2020.columns
 ```
 
-### Learning
-
-Identified the following columns:
+### Finding
 
 - OrderDate
 - StockDate
@@ -105,45 +95,64 @@ Identified the following columns:
 
 ---
 
-## Step 7: Standardize Column Names
+## Step 6: Standardize Column Names
+
+### Code
 
 ```python
 sales_2020.columns = sales_2020.columns.str.lower()
 ```
 
-### Learning
+### Transformation
 
-Converted all column names to lowercase to make coding easier and maintain consistency.
+| Original | Standardized |
+|----------|----------|
+| OrderDate | orderdate |
+| StockDate | stockdate |
+| OrderNumber | ordernumber |
+| ProductKey | productkey |
+| CustomerKey | customerkey |
+| TerritoryKey | territorykey |
+| OrderLineItem | orderlineitem |
+| OrderQuantity | orderquantity |
+
+### Purpose
+
+Improve consistency and simplify coding.
 
 ---
 
-## Step 8: Check Data Types
+## Step 7: Review Data Types
+
+### Code
 
 ```python
 sales_2020.dtypes
 ```
 
-### Learning
+### Finding
 
-Observed:
-- Date columns loaded as strings
-- Numeric columns loaded as integers
+Date columns were initially loaded as strings.
 
 ---
 
-## Step 9: Check Missing Values
+## Step 8: Validate Missing Values
+
+### Code
 
 ```python
 sales_2020.isnull().sum()
 ```
 
-### Learning
+### Finding
 
-Verified completeness of the data.
+No significant missing values identified.
 
 ---
 
-## Step 10: Check Duplicate Records
+## Step 9: Validate Duplicate Records
+
+### Code
 
 ```python
 sales_2020.duplicated().sum()
@@ -155,13 +164,15 @@ sales_2020.duplicated().sum()
 0
 ```
 
-### Learning
+### Finding
 
 No duplicate records found.
 
 ---
 
-## Step 11: Convert Date Columns
+## Step 10: Convert Date Columns
+
+### Code
 
 ```python
 sales_2020['orderdate'] = pd.to_datetime(
@@ -173,13 +184,19 @@ sales_2020['stockdate'] = pd.to_datetime(
 )
 ```
 
-### Learning
+### Purpose
 
-Converted string dates into datetime format.
+Convert string values to datetime format for analysis.
+
+### Outcome
+
+Both date columns successfully converted.
 
 ---
 
-## Step 12: Validate Order Year
+## Step 11: Validate Order Year
+
+### Code
 
 ```python
 sales_2020['orderdate'].dt.year.unique()
@@ -191,6 +208,105 @@ sales_2020['orderdate'].dt.year.unique()
 array([2020])
 ```
 
-### Learning
+### Finding
 
 All transactions belong to the year 2020.
+
+---
+
+## Step 12: Validate Transaction Date Range
+
+### Code
+
+```python
+sales_2020['orderdate'].min()
+
+sales_2020['orderdate'].max()
+```
+
+### Purpose
+
+Identify earliest and latest transaction dates.
+
+### Outcome
+
+Confirmed expected sales period for 2020.
+
+---
+
+## Step 13: Validate Key Columns
+
+### Code
+
+```python
+sales_2020[
+    ['productkey',
+     'customerkey',
+     'territorykey']
+].describe()
+```
+
+### Purpose
+
+Review key ranges and identify abnormal values.
+
+### Outcome
+
+Key columns appeared valid.
+
+---
+
+## Step 14: Create Reusable Standardization Function
+
+### Code
+
+```python
+def standardize_sales_data(df):
+
+    df.columns = df.columns.str.lower()
+
+    df['orderdate'] = pd.to_datetime(
+        df['orderdate']
+    )
+
+    df['stockdate'] = pd.to_datetime(
+        df['stockdate']
+    )
+
+    return df
+```
+
+### Purpose
+
+Create a reusable transformation routine for all yearly sales datasets.
+
+### Benefit
+
+Ensures standardized processing for:
+- Sales 2020
+- Sales 2021
+- Sales 2022
+
+---
+
+## Step 15: Apply Standardization Function
+
+### Code
+
+```python
+sales_2020 = standardize_sales_data(
+    sales_2020
+)
+```
+
+### Outcome
+
+Successfully applied reusable ETL transformations to the dataset.
+
+---
+
+## Conclusion
+
+AdventureWorks Sales Data 2020 was successfully profiled, validated, and standardized.
+
+Dataset Status: Ready for consolidation with 2021 and 2022 sales datasets.
