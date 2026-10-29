@@ -1,64 +1,73 @@
-# Retail Sales Analytics End-to-End Project
+# AdventureWorks Sales Analytics End-to-End Project
 
 ## Overview
 
-This project demonstrates a complete end-to-end Business Intelligence and Data Analytics solution using industry-standard tools and practices. The goal is to simulate a real-world analytics project that a Data Analyst or Power BI Developer would build in a professional environment.
+This project demonstrates an end-to-end Business Intelligence and Analytics solution using Microsoft's AdventureWorks dataset.
 
-The project covers the entire analytics lifecycle, from raw data ingestion and transformation to reporting and business insights generation.
+The project follows a real-world analytics workflow used by Data Analysts, Power BI Developers, and BI Engineers, covering data profiling, data transformation, data modeling, dashboard development, and documentation.
 
 ---
 
 ## Project Objectives
 
-- Design and implement a scalable data model.
-- Perform data cleaning and transformation using Python.
-- Store and query data using SQL.
-- Build interactive dashboards in Power BI.
-- Apply version control and collaboration practices using GitHub.
-- Document project architecture, development process, and business insights.
+- Perform data profiling using Python and Pandas.
+- Build reusable ETL processes.
+- Create a dimensional star schema model.
+- Design SQL-based analytical structures.
+- Develop interactive Power BI dashboards.
+- Document the complete analytics lifecycle using GitHub.
 
 ---
 
-## Business Scenario
+## Dataset
 
-A retail company wants to analyze its sales performance across products, customers, regions, and time periods.
+### Source
 
-Key business questions include:
+Microsoft AdventureWorks Dataset
 
-- What are the overall sales and profit trends?
-- Which products generate the highest revenue?
-- Which customer segments contribute the most profit?
-- Which regions perform best?
-- How has the business performed over time?
-- What actionable insights can improve business performance?
+### Available Files
+
+#### Fact Tables
+
+- AdventureWorks Sales Data 2020
+- AdventureWorks Sales Data 2021
+- AdventureWorks Sales Data 2022
+- AdventureWorks Returns Data
+
+#### Dimension Tables
+
+- AdventureWorks Customer Lookup
+- AdventureWorks Product Lookup
+- AdventureWorks Product Categories Lookup
+- AdventureWorks Product Subcategories Lookup
+- AdventureWorks Territory Lookup
+- AdventureWorks Calendar Lookup
 
 ---
 
 ## Project Architecture
 
 ```text
-Raw Sales Data (CSV Files)
-            │
-            ▼
-      Python ETL Process
-      - Data Cleaning
-      - Data Validation
-      - Data Transformation
-            │
-            ▼
-        SQL Database
-      - Fact Tables
-      - Dimension Tables
-      - SQL Views
-            │
-            ▼
-      Power BI Dashboard
-      - KPIs
-      - Interactive Reports
-      - Business Insights
-            │
-            ▼
-      Decision Making
+AdventureWorks CSV Files
+          │
+          ▼
+    Python ETL Layer
+    (Pandas & NumPy)
+          │
+          ▼
+     FactSales Table
+          │
+          ▼
+       SQL Model
+          │
+          ▼
+      Power BI Model
+          │
+          ▼
+Interactive Dashboards
+          │
+          ▼
+Business Insights
 ```
 
 ---
@@ -67,154 +76,194 @@ Raw Sales Data (CSV Files)
 
 | Technology | Purpose |
 |------------|----------|
-| Python | Data Cleaning, Transformation, ETL |
-| Pandas | Data Manipulation |
-| SQL Server | Data Storage and Querying |
-| SQL | Data Modeling and Analysis |
-| Power BI | Dashboard Development |
+| Python | Data Profiling & ETL |
+| Pandas | Data Transformation |
+| NumPy | Numerical Operations |
+| SQL | Data Modeling |
+| Power BI | Data Visualization |
 | Git | Version Control |
-| GitHub | Project Management & Collaboration |
-| DAX | Business Calculations |
+| GitHub | Documentation & Collaboration |
 
 ---
 
-## Project Workflow
-
-### Phase 1: Repository Setup
-- Create GitHub Repository
-- Define project structure
-- Setup version control
-
-### Phase 2: Data Acquisition
-- Download retail sales dataset
-- Understand data structure
-- Perform initial profiling
-
-### Phase 3: Data Cleaning and ETL
-- Handle missing values
-- Remove duplicates
-- Standardize columns
-- Create transformed datasets
-
-### Phase 4: SQL Data Modeling
-- Create database schema
-- Build dimension tables
-- Build fact tables
-- Develop analytical views
-
-### Phase 5: Power BI Development
-- Import SQL data
-- Design data model
-- Create DAX measures
-- Build dashboards
-
-### Phase 6: Documentation
-- Capture screenshots
-- Document architecture
-- Summarize key findings
-
----
-
-## Planned Dashboard Pages
-
-### Executive Summary
-- Revenue KPI
-- Profit KPI
-- Total Orders
-- Total Customers
-
-### Sales Analysis
-- Sales Trends
-- Product Performance
-- Category Analysis
-
-### Customer Analysis
-- Customer Segmentation
-- Customer Contribution Analysis
-
-### Regional Analysis
-- Region Performance
-- Profitability by Location
-
-### Time Intelligence
-- Month-over-Month Growth
-- Year-over-Year Growth
-
----
-
-## Expected Business Insights
-
-- Identify top-performing products.
-- Analyze profit-driving customer segments.
-- Detect sales trends and seasonality.
-- Evaluate regional business performance.
-- Support business decision-making through data.
-
----
-
-## GitHub Workflow
-
-This project follows an industry-standard Git workflow.
-
-### Branch Strategy
+## Project Structure
 
 ```text
-main
+AdventureWorks-Sales-Analytics
 │
-├── feature/project-setup
-├── feature/data-acquisition
-├── feature/python-etl
-├── feature/sql-modeling
-├── feature/powerbi-dashboard
-└── feature/documentation
+├── Data
+│   ├── Raw
+│   └── Processed
+│
+├── docs
+│   ├── Data_Source.md
+│   ├── Data_Model.md
+│   ├── Data_Dictionary.md
+│   └── ETL_Journey.md
+│
+├── python
+│   ├── merge_sales_data.ipynb
+│   └── merge_sales_data.py
+│
+├── sql
+│
+├── PowerBI
+│
+├── README.md
+└── LICENSE
 ```
 
-### Development Process
+---
 
-1. Create Feature Branch
-2. Implement Changes
-3. Commit Changes
-4. Push Branch
-5. Create Pull Request
-6. Review Changes
-7. Merge into Main Branch
+## Data Model
+
+### FactSales
+
+Contains sales transactions from:
+
+- 2020
+- 2021
+- 2022
+
+Key Fields:
+
+- orderdate
+- productkey
+- customerkey
+- territorykey
+- orderquantity
 
 ---
 
-## Project Status
+### FactReturns
 
-✅ Repository Created
+Contains product return transactions.
 
-⬜ Data Acquisition
+Key Fields:
 
-⬜ Python ETL Development
-
-⬜ SQL Data Modeling
-
-⬜ Power BI Dashboard Development
-
-⬜ Documentation
-
-⬜ Final Deployment
+- returndate
+- productkey
+- territorykey
+- returnquantity
 
 ---
 
-## Future Enhancements
+### Dimensions
 
-- Incremental Data Loading
-- Automated ETL Pipelines
-- Data Quality Framework
-- Forecasting Models
-- Power BI Service Deployment
-- CI/CD using GitHub Actions
+#### DimCustomer
+
+Customer demographics including:
+
+- Annual Income
+- Occupation
+- Education Level
+- Home Owner Status
+
+#### DimProduct
+
+Product master information including:
+
+- Product Name
+- Product Category
+- Product Subcategory
+- Product Cost
+- Product Price
+
+#### DimTerritory
+
+Geography hierarchy:
+
+- Region
+- Country
+- Continent
+
+---
+
+## ETL Process
+
+### Phase 1: Data Profiling
+
+Completed:
+
+- Load datasets using Pandas
+- Validate schema
+- Validate data types
+- Check null values
+- Check duplicate records
+- Convert date fields
+- Validate yearly transaction ranges
+
+### Phase 2: Data Standardization
+
+Completed:
+
+- Column name standardization
+- Datetime conversion
+- Reusable standardization function
+
+### Phase 3: Data Consolidation
+
+Planned:
+
+- Merge 2020 Sales Data
+- Merge 2021 Sales Data
+- Merge 2022 Sales Data
+- Create FactSales dataset
+
+---
+
+## Planned SQL Deliverables
+
+- Data Profiling Queries
+- Fact Table Design
+- Dimension Table Design
+- Analytical Views
+- KPI Calculations
+
+---
+
+## Planned Power BI Deliverables
+
+### Executive Dashboard
+
+KPIs:
+
+- Total Orders
+- Order Quantity
+- Return Quantity
+- Return Rate
+
+### Product Analytics
+
+- Product Performance
+- Category Analysis
+- Subcategory Analysis
+
+### Customer Analytics
+
+- Customer Segmentation
+- Income Analysis
+- Occupation Analysis
+
+### Geography Analytics
+
+- Regional Performance
+- Country Analysis
+- Territory Analysis
+
+### Time Intelligence
+
+- Year-over-Year Growth
+- Monthly Trends
+- Quarterly Performance
 
 ---
 
 ## Author
 
-**Deepak Janaparapu**
+Deepak Janaparapu
 
-Senior Analyst | Data Analytics | Power BI | SQL | Python
+Senior Analyst | SQL | Python | Power BI | Data Analytics
 
 ---
 
